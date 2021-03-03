@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="scss/lk_style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapper">
+
+        <header class="header">
+            <div class="header-container container">
+                <div class="header-logo">
+                    <div class="logo__image"><img src="img/azs.png" alt=""></div>
+                    <div class="logo__title">TheBest of TheBest</div>
+                </div>
+                <div class="header-contacts">
+                    <div class="contacts__text">Горячая линия</div>
+                    <div class="contacts__number">8-800-555-35-35</div>
+                </div>
+                <div class="header-techSup">
+                    <a href="lk.html" class="techSup__link">Техническая поддержка</a>
+                </div>
+            </div>
+            <div class="header-bottom container">
+                    <a href="">
+                        <div class="item">
+                            Главная
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="item">
+                            Топливные карты
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="item">
+                            Сеть АЗС
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="item">
+                            Счета
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="item">
+                            Отчеты
+                        </div>
+                    </a>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="content-container container">
+                <div class="contract">
+                    <div class="contract-column column">
+                        <p>Статус договора</p>
+                        <p>Доступно</p>
+                        <p>Последний платеж по договору</p>
+                    </div>
+                    <div class="contract-column column">
+                        <p id="contract_status"></p>
+                        <p id="contract_available">1500000</p>
+                        <p id="contract_last_payment">21.04.2020</p>
+                    </div>
+                    <div class="contract-column column">
+                        <p>Расходы за текущий месяц</p>
+                        <p>Топливных карт</p>
+                    </div>
+                    <div class="contract-column column">
+                        <p id="expenses">140000</p>
+                        <p id="fuel_cart_count">140/150</p>
+                    </div>
+                </div>
+
+                <div class="operations"></div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-container container"></div>
+        </footer>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", ready);
+        async function ready() {
+        const url = 'http://127.0.0.1:3000';
+          
+            //get запрос чтобы получить данные о топливных картах
+            let response = await fetch(url, {
+                method: 'GET'
+            })
+            
+            // парсим полученный json в объект fuel_cart
+            let fuel_cart = await response.json();
+
+            // выводим поля fuel_cart 
+            document.getElementById('contract_status').textContent = await fuel_cart.status; 
+            document.getElementById('contract_available').textContent = await fuel_cart.available;
+            document.getElementById('contract_last_payment').textContent = await fuel_cart.last_purchase;
+            document.getElementById('expenses').textContent = await fuel_cart.current_cost;
+            document.getElementById('fuel_cart_count').textContent = await fuel_cart.fuel_carts + '/140';
+                
+        }
+        
+    </script>
+</body>
+</html>

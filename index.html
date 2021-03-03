@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/scss/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapper">
+            <header class="header">
+                <div class="header-container container">
+                    <div class="header-logo">
+                        <div class="logo__image"><img src="img/azs.png" alt=""></div>
+                        <div class="logo__title">TheBest of TheBest</div>
+                    </div>
+                    <div class="header-contacts">
+                        <div class="contacts__text">Горячая линия</div>
+                        <div class="contacts__number">8-800-555-35-35</div>
+                    </div>
+                    <div class="header-techSup">
+                        <a href="lk.html" class="techSup__link">Техническая поддержка</a>
+                    </div>
+                </div>
+            </header>
+    
+    
+            <div class="content">
+                <div class="content-container container">             
+                    <form name="submit">
+            Name: <input type="text" name="name" id="name"><br><br>
+            Password: <input type="text" name="password" id="password"><br><br>
+            <input type="submit" name="submit" value="Отправить" id="submit">
+        </form>
+                </div>
+            </div>
+        </div>
+            <footer class="footer">
+                <div class="footer-container container">
+                    <div class="company">
+                        <div class="company__name">OАО МАО ЦЗЭДУН "TheBest of TheBest"</div>
+                        <div class="company__address">Там-не-знаю-где</div>
+                        <div class="company__number">Тот-кого-нельзя-называть</div>
+                        <div class="company__media">
+                            <div class="company__media-vk">
+                                <a href=""><img src="img/vk.png" style="width: 25px; margin-top: 2px;" alt=""></a>
+                            </div>
+                            <div class="company__media-facebook">
+                                <a href=""><img src="img/facebook.png" style="width: 35px; margin-top: -3px;" alt=""></a>
+                            </div>
+                            <div class="company__media-instagram">
+                                <a href=""><img src="img/instagram.png" style="width: 30px; margin-left: -3px;" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+    <script>
+        const asd = document.getElementById('submit');
+        asd.onclick = submit;
+        
+        async function submit(e) {
+            e.preventDefault();
+            
+            
+            const url = 'http://127.0.0.1:3000';
+            let user = {
+                name: document.getElementById('name').value,
+                password: document.getElementById('password').value
+            }
+
+            let response = await fetch(url, {
+                method: 'POST',
+                headers: new Headers({'content-type': 'application/json'}),
+                body: JSON.stringify(user)
+            });
+
+            console.log(await response.status);
+        
+             if(await response.text() === 'admin')
+             {
+                document.location.href = "/lk.html";
+             }
+             else{
+                 alert('Неверный логин или пароль!')
+             }
+        }
+    </script>
+  </body>
+</html>
