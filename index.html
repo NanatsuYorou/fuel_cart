@@ -77,8 +77,8 @@
             });
 
             console.log(await response.status);
-        
-             if(await response.text() === 'admin')
+             let ans = await response.json();
+             if(await ans.name === 'admin')
              {
                 document.location.href = "/lk.html";
              }
