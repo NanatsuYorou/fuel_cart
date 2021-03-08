@@ -3,6 +3,11 @@ const express = require("express");
 // создаем объект приложения
 const app = express();
 
+var bodyParser = require('body-parser')
+
+// парсер тела запроса из json'а
+var jsonParser = bodyParser.json()
+
 // установили заголовки для CORS
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -32,7 +37,7 @@ app.get("/", function(request, response){
 app.post("/",  function(request, response){
 
     // тут должно быть обращение к БД для проверки корректности логина и пароля
-        response.send(request.body.name);
+        response.send(request.body);
 });
 console.log('Запустили сервер');
 // начинаем прослушивать подключения на 3000 порту
